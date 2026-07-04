@@ -6,6 +6,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from log_parser.apache_parser import parse_line as parse_apache
 from log_parser.auth_parser import parse_auth_line as parse_auth
 from rules.suspicious_user_agent import detect_suspicious_user_agent
+from rules.brute_force import detect_brute_force
+from rules.directory_scan import detect_directory_scan
 
 def load_logs(log_file):
     events = []
@@ -29,10 +31,22 @@ def main(log_file):
     auth_events = [e for e in events if e.source == "auth"]
     print(f"  Apache: {len(apache_events)}, Auth: {len(auth_events)}")
 
-    findings = detect_suspicious_user_agent(events)
-    print(f"Detected {len(findings)} suspicious user-agent events")
+    print("\n[Suspicious User-Agent]")
+    ua_findings = detect_suspicious_user_agent(events)
+    print(f"Detected {len(ua_findings)} events")
+    for f in ua_findings:
+        print(json.dumps(f, default=str, indent=2))
 
-    for f in findings:
+    print("\n[Brute-force]")
+    bf_findings = detect_brute_force(events)
+    print(f"Detected {len(bf_findings)} events")
+    for f in bf_findings:
+        print(json.dumps(f, default=str, indent=2))
+
+    print("\n[Directory Scanning]")
+    ds_findings = detect_directory_scan(events)
+    print(f"Detected {len(ds_findings)} events")
+    for f in ds_findings:
         print(json.dumps(f, default=str, indent=2))
 
 if __name__ == "__main__":
