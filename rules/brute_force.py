@@ -4,9 +4,9 @@ from datetime import timedelta
 def detect_brute_force(events, threshold=10, window_seconds=300):
     findings = []
     
-    # ssh_failed_login 이벤트만 필터링
-    failed_logins = [e for e in events if e.event_type == "ssh_failed_login"]
-    
+    # src_ip가 None인 이벤트 제외
+    failed_logins = [e for e in events if e.event_type == "ssh_failed_login" and e.src_ip is not None]
+
     # IP별로 이벤트 묶기
     ip_events = defaultdict(list)
     for event in failed_logins:
