@@ -1,18 +1,26 @@
+import yaml
+import os
 from collections import defaultdict
 from datetime import timedelta
 
-def detect_brute_force(events, threshold=10, window_seconds=300):
+def load_config():
+    config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "rules.yaml")
+    with open(config_path, "r") as f:
+        return yaml.safe_load(f)
+
+def detect_brute_force(events):
+    config = load_config()
+    threshold = config["brute_force"]["threshold"]
+    window_seconds = config["brute_force"]["window_seconds"]
+    
     findings = []
     
-    # src_ip가 None인 이벤트 제외
     failed_logins = [e for e in events if e.event_type == "ssh_failed_login" and e.src_ip is not None]
-
-    # IP별로 이벤트 묶기
+    
     ip_events = defaultdict(list)
     for event in failed_logins:
         ip_events[event.src_ip].append(event)
     
-    # IP별로 슬라이딩 윈도우 적용
     for ip, ip_event_list in ip_events.items():
         ip_event_list.sort(key=lambda e: e.timestamp)
         

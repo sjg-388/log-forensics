@@ -1,21 +1,29 @@
+import yaml
+import os
 from collections import defaultdict
 from datetime import timedelta
 
-def detect_directory_scan(events, threshold=20, window_seconds=60):
+def load_config():
+    config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "rules.yaml")
+    with open(config_path, "r") as f:
+        return yaml.safe_load(f)
+
+def detect_directory_scan(events):
+    config = load_config()
+    threshold = config["directory_scan"]["threshold"]
+    window_seconds = config["directory_scan"]["window_seconds"]
+    
     findings = []
     
-    # 404 이벤트만 필터링
     not_found_events = [
         e for e in events 
         if e.source == "apache" and e.status_code == 404
     ]
     
-    # IP별로 이벤트 묶기
     ip_events = defaultdict(list)
     for event in not_found_events:
         ip_events[event.src_ip].append(event)
     
-    # IP별로 슬라이딩 윈도우 적용
     for ip, ip_event_list in ip_events.items():
         ip_event_list.sort(key=lambda e: e.timestamp)
         

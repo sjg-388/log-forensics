@@ -8,6 +8,7 @@ from log_parser.auth_parser import parse_auth_line as parse_auth
 from rules.suspicious_user_agent import detect_suspicious_user_agent
 from rules.brute_force import detect_brute_force
 from rules.directory_scan import detect_directory_scan
+from rules.sql_injection import detect_sql_injection
 
 def load_logs(log_file):
     events = []
@@ -47,6 +48,12 @@ def main(log_file):
     ds_findings = detect_directory_scan(events)
     print(f"Detected {len(ds_findings)} events")
     for f in ds_findings:
+        print(json.dumps(f, default=str, indent=2))
+
+    print("\n[SQL Injection]")
+    sqli_findings = detect_sql_injection(events)
+    print(f"Detected {len(sqli_findings)} events")
+    for f in sqli_findings:
         print(json.dumps(f, default=str, indent=2))
 
 if __name__ == "__main__":
