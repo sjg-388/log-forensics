@@ -1,0 +1,30 @@
+suspicious_user_agent:
+  keywords:
+    - sqlmap
+    - nikto
+    - acunetix
+    - nmap
+    - dirbuster
+    - gobuster
+    - python-requests
+
+brute_force:
+  threshold: 10
+  window_seconds: 300
+
+directory_scan:
+  threshold: 20
+  window_seconds: 60
+
+sql_injection:
+  patterns:
+    - union
+    - select
+    - insert
+    - drop
+    - "'"
+    - "--"
+    - "/*"
+    - "xp_"
+    - "or 1=1"
+    - "and 1=1"
