@@ -9,6 +9,7 @@ from rules.suspicious_user_agent import detect_suspicious_user_agent
 from rules.brute_force import detect_brute_force
 from rules.directory_scan import detect_directory_scan
 from rules.sql_injection import detect_sql_injection
+from ioc_extractor import extract_ioc
 
 def load_logs(log_file):
     events = []
@@ -32,6 +33,7 @@ def main(log_file):
     auth_events = [e for e in events if e.source == "auth"]
     print(f"  Apache: {len(apache_events)}, Auth: {len(auth_events)}")
 
+    # 탐지 룰 실행
     print("\n[Suspicious User-Agent]")
     ua_findings = detect_suspicious_user_agent(events)
     print(f"Detected {len(ua_findings)} events")
@@ -55,6 +57,15 @@ def main(log_file):
     print(f"Detected {len(sqli_findings)} events")
     for f in sqli_findings:
         print(json.dumps(f, default=str, indent=2))
+
+    # IOC 추출
+    all_findings = ua_findings + bf_findings + ds_findings + sqli_findings
+    ioc = extract_ioc(all_findings)
+
+    print("\n" + "="*50)
+    print("[IOC 추출 결과]")
+    print("="*50)
+    print(json.dumps(ioc, default=str, indent=2))
 
 if __name__ == "__main__":
     main(sys.argv[1])
