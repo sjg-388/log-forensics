@@ -1,0 +1,50 @@
+[
+  {
+    "timestamp": "2005-06-15 12:12:34",
+    "src_ip": "218.188.2.4",
+    "rule": "brute_force",
+    "detail": "12 failed logins from 218.188.2.4 within 300s"
+  },
+  {
+    "timestamp": "2005-06-15 14:53:32",
+    "src_ip": "061092085098.ctinets.com",
+    "rule": "brute_force",
+    "detail": "10 failed logins from 061092085098.ctinets.com within 300s"
+  },
+  {
+    "timestamp": "2005-06-18 01:30:59",
+    "src_ip": "adsl-70-242-75-179.dsl.ksc2mo.swbell.net",
+    "rule": "brute_force",
+    "detail": "10 failed logins from adsl-70-242-75-179.dsl.ksc2mo.swbell.net within 300s"
+  },
+  {
+    "timestamp": "2005-06-20 09:20:05",
+    "src_ip": "65.166.159.14",
+    "rule": "brute_force",
+    "detail": "10 failed logins from 65.166.159.14 within 300s"
+  },
+  {
+    "timestamp": "2005-06-22 04:30:55",
+    "src_ip": "ip-216-69-169-168.ip.secureserver.net",
+    "rule": "brute_force",
+    "detail": "10 failed logins from ip-216-69-169-168.ip.secureserver.net within 300s"
+  },
+  {
+    "timestamp": "2005-06-25 04:41:49",
+    "src_ip": "massive.merukuru.org",
+    "rule": "brute_force",
+    "detail": "10 failed logins from massive.merukuru.org within 300s"
+  },
+  {
+    "timestamp": "2005-07-02 04:15:33",
+    "src_ip": "zummit.com",
+    "rule": "brute_force",
+    "detail": "10 failed logins from zummit.com within 300s"
+  },
+  {
+    "timestamp": "2005-07-18 23:01:25",
+    "src_ip": "211-76-104-65.ebix.net.tw",
+    "rule": "brute_force",
+    "detail": "10 failed logins from 211-76-104-65.ebix.net.tw within 300s"
+  }
+]

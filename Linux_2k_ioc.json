@@ -1,0 +1,15 @@
+{
+  "suspicious_ips": [
+    "061092085098.ctinets.com",
+    "211-76-104-65.ebix.net.tw",
+    "218.188.2.4",
+    "65.166.159.14",
+    "adsl-70-242-75-179.dsl.ksc2mo.swbell.net",
+    "ip-216-69-169-168.ip.secureserver.net",
+    "massive.merukuru.org",
+    "zummit.com"
+  ],
+  "suspicious_urls": [],
+  "suspicious_user_agents": [],
+  "suspicious_accounts": []
+}
