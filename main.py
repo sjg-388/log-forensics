@@ -10,6 +10,7 @@ from rules.brute_force import detect_brute_force
 from rules.directory_scan import detect_directory_scan
 from rules.sql_injection import detect_sql_injection
 from ioc_extractor import extract_ioc
+from timeline_reconstructor import build_timeline, print_timeline
 
 def load_logs(log_file):
     events = []
@@ -25,6 +26,21 @@ def load_logs(log_file):
                 events.append(event)
     return events
 
+def save_results(log_file, ioc, timeline):
+    base = os.path.splitext(os.path.basename(log_file))[0]
+    
+    # IOC 저장
+    ioc_path = f"{base}_ioc.json"
+    with open(ioc_path, "w", encoding="utf-8") as f:
+        json.dump(ioc, f, ensure_ascii=False, indent=2)
+    print(f"\nIOC 저장 완료: {ioc_path}")
+    
+    # 타임라인 저장
+    timeline_path = f"{base}_timeline.json"
+    with open(timeline_path, "w", encoding="utf-8") as f:
+        json.dump(timeline, f, ensure_ascii=False, indent=2)
+    print(f"타임라인 저장 완료: {timeline_path}")
+
 def main(log_file):
     events = load_logs(log_file)
     print(f"Parsed {len(events)} events")
@@ -33,7 +49,6 @@ def main(log_file):
     auth_events = [e for e in events if e.source == "auth"]
     print(f"  Apache: {len(apache_events)}, Auth: {len(auth_events)}")
 
-    # 탐지 룰 실행
     print("\n[Suspicious User-Agent]")
     ua_findings = detect_suspicious_user_agent(events)
     print(f"Detected {len(ua_findings)} events")
@@ -66,6 +81,13 @@ def main(log_file):
     print("[IOC 추출 결과]")
     print("="*50)
     print(json.dumps(ioc, default=str, indent=2))
+
+    # 타임라인 생성
+    timeline = build_timeline(all_findings)
+    print_timeline(timeline)
+
+    # 결과 파일 저장
+    save_results(log_file, ioc, timeline)
 
 if __name__ == "__main__":
     main(sys.argv[1])
