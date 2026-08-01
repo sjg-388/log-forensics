@@ -1,0 +1,84 @@
+# 포렌식 분석 리포트
+
+**분석 대상:** {{ log_file }}
+**분석 일시:** {{ analysis_time }}
+**총 파싱 이벤트:** {{ total_events }}개
+
+---
+
+## Executive Summary
+
+| 항목 | 수치 |
+|---|---|
+| 총 탐지 이벤트 | {{ total_findings }}건 |
+| 의심 IP | {{ ioc.suspicious_ips | length }}개 |
+| 의심 URL | {{ ioc.suspicious_urls | length }}개 |
+| 의심 User-Agent | {{ ioc.suspicious_user_agents | length }}개 |
+
+---
+
+## 탐지 결과 요약
+
+| 룰 | 탐지 건수 |
+|---|---|
+| Suspicious User-Agent | {{ ua_count }}건 |
+| Brute-force | {{ bf_count }}건 |
+| Directory Scanning | {{ ds_count }}건 |
+| SQL Injection | {{ sqli_count }}건 |
+
+---
+
+## 공격 타임라인
+
+{% if timeline %}
+{% for entry in timeline %}
+### [{{ entry.timestamp }}]
+- **IP:** {{ entry.src_ip }}
+- **룰:** {{ entry.rule }}
+- **상세:** {{ entry.detail }}
+{% if entry.path is defined %}- **경로:** {{ entry.path }}{% endif %}
+
+{% endfor %}
+{% else %}
+탐지된 이벤트 없음
+{% endif %}
+
+---
+
+## IOC 목록
+
+### 의심 IP
+{% if ioc.suspicious_ips %}
+{% for ip in ioc.suspicious_ips %}
+- {{ ip }}
+{% endfor %}
+{% else %}
+없음
+{% endif %}
+
+### 의심 URL
+{% if ioc.suspicious_urls %}
+{% for url in ioc.suspicious_urls %}
+- {{ url }}
+{% endfor %}
+{% else %}
+없음
+{% endif %}
+
+### 의심 User-Agent
+{% if ioc.suspicious_user_agents %}
+{% for ua in ioc.suspicious_user_agents %}
+- {{ ua }}
+{% endfor %}
+{% else %}
+없음
+{% endif %}
+
+### 의심 계정
+{% if ioc.suspicious_accounts %}
+{% for account in ioc.suspicious_accounts %}
+- {{ account }}
+{% endfor %}
+{% else %}
+없음
+{% endif %}
