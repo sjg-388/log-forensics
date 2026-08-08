@@ -11,5 +11,9 @@
   ],
   "suspicious_urls": [],
   "suspicious_user_agents": [],
-  "suspicious_accounts": []
+  "suspicious_accounts": [
+    "guest",
+    "root",
+    "test"
+  ]
 }

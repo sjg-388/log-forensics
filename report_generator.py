@@ -2,16 +2,13 @@ import os
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 
-def generate_markdown_report(log_file, total_events, all_findings, ioc, timeline,
-                              ua_findings, bf_findings, ds_findings, sqli_findings):
-    
-    # Jinja2 환경 설정
+def get_env():
     template_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates")
-    env = Environment(loader=FileSystemLoader(template_dir))
-    template = env.get_template("report.md.j2")
-    
-    # 템플릿에 넘길 데이터
-    context = {
+    return Environment(loader=FileSystemLoader(template_dir))
+
+def build_context(log_file, total_events, all_findings, ioc, timeline,
+                  ua_findings, bf_findings, ds_findings, sqli_findings):
+    return {
         "log_file": os.path.basename(log_file),
         "analysis_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "total_events": total_events,
@@ -23,15 +20,33 @@ def generate_markdown_report(log_file, total_events, all_findings, ioc, timeline
         "ds_count": len(ds_findings),
         "sqli_count": len(sqli_findings),
     }
-    
-    # 리포트 생성
+
+def generate_markdown_report(log_file, total_events, all_findings, ioc, timeline,
+                              ua_findings, bf_findings, ds_findings, sqli_findings):
+    env = get_env()
+    template = env.get_template("report.md.j2")
+    context = build_context(log_file, total_events, all_findings, ioc, timeline,
+                            ua_findings, bf_findings, ds_findings, sqli_findings)
     report = template.render(context)
     
-    # 파일 저장
     base = os.path.splitext(os.path.basename(log_file))[0]
     report_path = f"{base}_report.md"
     with open(report_path, "w", encoding="utf-8") as f:
         f.write(report)
+    print(f"Markdown 리포트 저장 완료: {report_path}")
+    return report_path
+
+def generate_html_report(log_file, total_events, all_findings, ioc, timeline,
+                         ua_findings, bf_findings, ds_findings, sqli_findings):
+    env = get_env()
+    template = env.get_template("report.html.j2")
+    context = build_context(log_file, total_events, all_findings, ioc, timeline,
+                            ua_findings, bf_findings, ds_findings, sqli_findings)
+    report = template.render(context)
     
-    print(f"리포트 저장 완료: {report_path}")
+    base = os.path.splitext(os.path.basename(log_file))[0]
+    report_path = f"{base}_report.html"
+    with open(report_path, "w", encoding="utf-8") as f:
+        f.write(report)
+    print(f"HTML 리포트 저장 완료: {report_path}")
     return report_path
