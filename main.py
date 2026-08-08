@@ -11,7 +11,7 @@ from rules.directory_scan import detect_directory_scan
 from rules.sql_injection import detect_sql_injection
 from ioc_extractor import extract_ioc
 from timeline_reconstructor import build_timeline, print_timeline
-from report_generator import generate_markdown_report
+from report_generator import generate_markdown_report, generate_html_report
 
 def load_logs(log_file):
     events = []
@@ -73,7 +73,7 @@ def main(log_file):
         print(json.dumps(f, default=str, indent=2))
 
     all_findings = ua_findings + bf_findings + ds_findings + sqli_findings
-    ioc = extract_ioc(all_findings)
+    ioc = extract_ioc(all_findings, events)
 
     print("\n" + "="*50)
     print("[IOC 추출 결과]")
@@ -87,6 +87,10 @@ def main(log_file):
 
     print("\n[리포트 생성]")
     generate_markdown_report(
+        log_file, len(events), all_findings, ioc, timeline,
+        ua_findings, bf_findings, ds_findings, sqli_findings
+    )
+    generate_html_report(
         log_file, len(events), all_findings, ioc, timeline,
         ua_findings, bf_findings, ds_findings, sqli_findings
     )
