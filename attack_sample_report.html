@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포렌식 분석 리포트</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            color: #333;
+            background: #f9f9f9;
+        }
+        h1 { color: #1a1a2e; border-bottom: 3px solid #e94560; padding-bottom: 10px; }
+        h2 { color: #16213e; border-left: 4px solid #e94560; padding-left: 12px; margin-top: 40px; }
+        h3 { color: #444; }
+        .meta { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+        .meta p { margin: 6px 0; }
+        table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+        th { background: #1a1a2e; color: #fff; padding: 12px 16px; text-align: left; }
+        td { padding: 10px 16px; border-bottom: 1px solid #eee; }
+        tr:last-child td { border-bottom: none; }
+        .timeline-entry { background: #fff; border-left: 4px solid #e94560; border-radius: 4px; padding: 14px 18px; margin: 12px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .timeline-entry .ts { font-size: 0.85em; color: #888; margin-bottom: 6px; }
+        .timeline-entry .rule { display: inline-block; background: #e94560; color: #fff; font-size: 0.8em; padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; }
+        .ioc-list { list-style: none; padding: 0; }
+        .ioc-list li { background: #fff; border: 1px solid #eee; border-radius: 4px; padding: 8px 14px; margin: 6px 0; font-family: monospace; }
+        .empty { color: #aaa; font-style: italic; }
+        .summary-number { font-size: 1.5em; font-weight: bold; color: #e94560; }
+    </style>
+</head>
+<body>
+
+<h1>포렌식 분석 리포트</h1>
+
+<div class="meta">
+    <p><strong>분석 대상:</strong> attack_sample.log</p>
+    <p><strong>분석 일시:</strong> 2026-08-16 05:09:11</p>
+    <p><strong>총 파싱 이벤트:</strong> 23개</p>
+</div>
+
+<h2>Executive Summary</h2>
+<table>
+    <tr><th>항목</th><th>수치</th></tr>
+    <tr><td>총 탐지 이벤트</td><td><span class="summary-number">3</span>건</td></tr>
+    <tr><td>의심 IP</td><td><span class="summary-number">2</span>개</td></tr>
+    <tr><td>의심 URL</td><td><span class="summary-number">1</span>개</td></tr>
+    <tr><td>의심 User-Agent</td><td><span class="summary-number">1</span>개</td></tr>
+</table>
+
+<h2>탐지 결과 요약</h2>
+<table>
+    <tr><th>룰</th><th>탐지 건수</th></tr>
+    <tr><td>Suspicious User-Agent</td><td>1건</td></tr>
+    <tr><td>Brute-force</td><td>0건</td></tr>
+    <tr><td>Directory Scanning</td><td>1건</td></tr>
+    <tr><td>SQL Injection</td><td>1건</td></tr>
+</table>
+
+<h2>공격 타임라인</h2>
+
+
+<div class="timeline-entry">
+    <div class="ts">2015-05-10 01:12:01+00:00</div>
+    <span class="rule">directory_scan</span>
+    <p><strong>IP:</strong> 192.168.1.100</p>
+    <p><strong>상세:</strong> 21 requests with 21 unique paths from 192.168.1.100 within 60s</p>
+    
+</div>
+
+<div class="timeline-entry">
+    <div class="ts">2015-05-10 01:13:01+00:00</div>
+    <span class="rule">suspicious_user_agent</span>
+    <p><strong>IP:</strong> 10.0.0.5</p>
+    <p><strong>상세:</strong> User-Agent contains suspicious keyword: sqlmap</p>
+    <p><strong>경로:</strong> /login?user=admin'--&pass=x</p>
+</div>
+
+<div class="timeline-entry">
+    <div class="ts">2015-05-10 01:13:01+00:00</div>
+    <span class="rule">sql_injection</span>
+    <p><strong>IP:</strong> 10.0.0.5</p>
+    <p><strong>상세:</strong> SQL Injection 시도 의심 패턴 탐지 (쿼리스트링): '</p>
+    <p><strong>경로:</strong> /login?user=admin'--&pass=x</p>
+</div>
+
+
+
+<h2>IOC 목록</h2>
+
+<h3>의심 IP</h3>
+
+<ul class="ioc-list">
+
+    <li>10.0.0.5</li>
+
+    <li>192.168.1.100</li>
+
+</ul>
+
+
+<h3>의심 URL</h3>
+
+<ul class="ioc-list">
+
+    <li>/login?user=admin'--&pass=x</li>
+
+</ul>
+
+
+<h3>의심 User-Agent</h3>
+
+<ul class="ioc-list">
+
+    <li>sqlmap/1.7</li>
+
+</ul>
+
+
+<h3>의심 계정</h3>
+
+<p class="empty">없음</p>
+
+
+</body>
+</html>
