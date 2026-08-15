@@ -41,6 +41,12 @@ def save_results(log_file, ioc, timeline):
     print(f"타임라인 저장 완료: {timeline_path}")
 
 def main(log_file):
+
+    # 파일 존재 여부 확인
+    if not os.path.exists(log_file):
+        print(f"[오류] 파일을 찾을 수 없습니다: {log_file}")
+        sys.exit(1)
+  
     events = load_logs(log_file)
     print(f"Parsed {len(events)} events")
 
@@ -96,4 +102,8 @@ def main(log_file):
     )
 
 if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("사용법: python main.py <로그 파일 경로>")
+        print("예시: python main.py sample_logs/apache_logs.txt")
+        sys.exit(1)
     main(sys.argv[1])
