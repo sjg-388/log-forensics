@@ -1,0 +1,22 @@
+[
+  {
+    "timestamp": "2015-05-10 01:12:01+00:00",
+    "src_ip": "192.168.1.100",
+    "rule": "directory_scan",
+    "detail": "21 requests with 21 unique paths from 192.168.1.100 within 60s"
+  },
+  {
+    "timestamp": "2015-05-10 01:13:01+00:00",
+    "src_ip": "10.0.0.5",
+    "rule": "suspicious_user_agent",
+    "detail": "User-Agent contains suspicious keyword: sqlmap",
+    "path": "/login?user=admin'--&pass=x"
+  },
+  {
+    "timestamp": "2015-05-10 01:13:01+00:00",
+    "src_ip": "10.0.0.5",
+    "rule": "sql_injection",
+    "detail": "SQL Injection 시도 의심 패턴 탐지 (쿼리스트링): '",
+    "path": "/login?user=admin'--&pass=x"
+  }
+]
