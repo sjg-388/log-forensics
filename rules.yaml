@@ -19,12 +19,9 @@ directory_scan:
 sql_injection:
   patterns:
     - union
-    - select
     - insert
     - drop
     - "'"
-    - "--"
     - "/*"
-    - "xp_"
     - "or 1=1"
     - "and 1=1"

@@ -37,16 +37,16 @@
 
 <div class="meta">
     <p><strong>분석 대상:</strong> zanbil_access.log</p>
-    <p><strong>분석 일시:</strong> 2026-08-30 23:48:38</p>
+    <p><strong>분석 일시:</strong> 2026-09-06 23:21:28</p>
     <p><strong>총 파싱 이벤트:</strong> 5000개</p>
 </div>
 
 <h2>Executive Summary</h2>
 <table>
     <tr><th>항목</th><th>수치</th></tr>
-    <tr><td>총 탐지 이벤트</td><td><span class="summary-number">5</span>건</td></tr>
-    <tr><td>의심 IP</td><td><span class="summary-number">4</span>개</td></tr>
-    <tr><td>의심 URL</td><td><span class="summary-number">4</span>개</td></tr>
+    <tr><td>총 탐지 이벤트</td><td><span class="summary-number">1</span>건</td></tr>
+    <tr><td>의심 IP</td><td><span class="summary-number">1</span>개</td></tr>
+    <tr><td>의심 URL</td><td><span class="summary-number">0</span>개</td></tr>
     <tr><td>의심 User-Agent</td><td><span class="summary-number">0</span>개</td></tr>
 </table>
 
@@ -56,43 +56,11 @@
     <tr><td>Suspicious User-Agent</td><td>0건</td></tr>
     <tr><td>Brute-force</td><td>0건</td></tr>
     <tr><td>Directory Scanning</td><td>1건</td></tr>
-    <tr><td>SQL Injection</td><td>4건</td></tr>
+    <tr><td>SQL Injection</td><td>0건</td></tr>
 </table>
 
 <h2>공격 타임라인</h2>
 
-
-<div class="timeline-entry">
-    <div class="ts">2019-01-22 03:58:28+03:30</div>
-    <span class="rule">sql_injection</span>
-    <p><strong>IP:</strong> 31.56.96.51</p>
-    <p><strong>상세:</strong> SQL Injection 시도 의심 패턴 탐지 (쿼리스트링): select</p>
-    <p><strong>경로:</strong> /image/28821?name=silver-select....-.jpg&wh=max</p>
-</div>
-
-<div class="timeline-entry">
-    <div class="ts">2019-01-22 03:58:36+03:30</div>
-    <span class="rule">sql_injection</span>
-    <p><strong>IP:</strong> 31.56.96.51</p>
-    <p><strong>상세:</strong> SQL Injection 시도 의심 패턴 탐지 (쿼리스트링): select</p>
-    <p><strong>경로:</strong> /image/28821?name=-gold-select...-.jpg&wh=max</p>
-</div>
-
-<div class="timeline-entry">
-    <div class="ts">2019-01-22 03:59:50+03:30</div>
-    <span class="rule">sql_injection</span>
-    <p><strong>IP:</strong> 207.46.13.136</p>
-    <p><strong>상세:</strong> SQL Injection 시도 의심 패턴 탐지 (쿼리스트링): --</p>
-    <p><strong>경로:</strong> /image/32150?name=rf-840n--e2-11.jpg&wh=max</p>
-</div>
-
-<div class="timeline-entry">
-    <div class="ts">2019-01-22 04:09:26+03:30</div>
-    <span class="rule">sql_injection</span>
-    <p><strong>IP:</strong> 5.123.209.223</p>
-    <p><strong>상세:</strong> SQL Injection 시도 의심 패턴 탐지 (쿼리스트링): --</p>
-    <p><strong>경로:</strong> /image/8243?name=fc---19dd4sa.jpg&wh=200x200</p>
-</div>
 
 <div class="timeline-entry">
     <div class="ts">2019-01-22 04:09:40+03:30</div>
@@ -110,30 +78,14 @@
 
 <ul class="ioc-list">
 
-    <li>207.46.13.136</li>
-
     <li>31.184.130.52</li>
-
-    <li>31.56.96.51</li>
-
-    <li>5.123.209.223</li>
 
 </ul>
 
 
 <h3>의심 URL</h3>
 
-<ul class="ioc-list">
-
-    <li>/image/28821?name=-gold-select...-.jpg&wh=max</li>
-
-    <li>/image/28821?name=silver-select....-.jpg&wh=max</li>
-
-    <li>/image/32150?name=rf-840n--e2-11.jpg&wh=max</li>
-
-    <li>/image/8243?name=fc---19dd4sa.jpg&wh=200x200</li>
-
-</ul>
+<p class="empty">없음</p>
 
 
 <h3>의심 User-Agent</h3>
