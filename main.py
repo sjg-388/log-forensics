@@ -12,6 +12,7 @@ from rules.sql_injection import detect_sql_injection
 from ioc_extractor import extract_ioc
 from timeline_reconstructor import build_timeline, print_timeline
 from report_generator import generate_markdown_report, generate_html_report
+from case_builder import build_cases, print_cases
 
 def load_logs(log_file):
     events = []
@@ -91,6 +92,17 @@ def main(log_file):
 
     save_results(log_file, ioc, timeline)
 
+        # Case 분석
+    cases = build_cases(all_findings, events)
+    print_cases(cases)
+
+    # Case 저장
+    base = os.path.splitext(os.path.basename(log_file))[0]
+    cases_path = f"{base}_cases.json"
+    with open(cases_path, "w", encoding="utf-8") as f:
+        json.dump(cases, f, ensure_ascii=False, indent=2)
+    print(f"Case 저장 완료: {cases_path}")
+    
     print("\n[리포트 생성]")
     generate_markdown_report(
         log_file, len(events), all_findings, ioc, timeline,

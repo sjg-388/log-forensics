@@ -1,0 +1,49 @@
+[
+  {
+    "timestamp": "2005-06-10 09:08:00",
+    "src_ip": "10.0.0.23",
+    "rule": "brute_force",
+    "detail": "11 failed logins from 10.0.0.23 within 300s"
+  },
+  {
+    "timestamp": "2015-05-10 09:00:01+00:00",
+    "src_ip": "10.0.0.23",
+    "rule": "directory_scan",
+    "detail": "21 requests with 21 unique paths from 10.0.0.23 within 60s"
+  },
+  {
+    "timestamp": "2015-05-10 09:03:00+00:00",
+    "src_ip": "10.0.0.23",
+    "rule": "suspicious_user_agent",
+    "detail": "User-Agent contains suspicious keyword: sqlmap",
+    "path": "/search?q=%27%20OR%201%3D1"
+  },
+  {
+    "timestamp": "2015-05-10 09:03:00+00:00",
+    "src_ip": "10.0.0.23",
+    "rule": "sql_injection",
+    "detail": "SQL Injection 시도 의심 패턴 탐지 (쿼리스트링): '",
+    "path": "/search?q=%27%20OR%201%3D1"
+  },
+  {
+    "timestamp": "2015-05-10 09:03:01+00:00",
+    "src_ip": "10.0.0.23",
+    "rule": "suspicious_user_agent",
+    "detail": "User-Agent contains suspicious keyword: sqlmap",
+    "path": "/product?id=1%20UNION%20SELECT%20username%20FROM%20users"
+  },
+  {
+    "timestamp": "2015-05-10 09:03:01+00:00",
+    "src_ip": "10.0.0.23",
+    "rule": "sql_injection",
+    "detail": "SQL Injection 시도 의심 패턴 탐지 (쿼리스트링): union",
+    "path": "/product?id=1%20UNION%20SELECT%20username%20FROM%20users"
+  },
+  {
+    "timestamp": "2015-05-10 09:05:00+00:00",
+    "src_ip": "10.0.0.23",
+    "rule": "suspicious_user_agent",
+    "detail": "User-Agent contains suspicious keyword: sqlmap",
+    "path": "/login"
+  }
+]

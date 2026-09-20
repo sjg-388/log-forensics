@@ -1,0 +1,19 @@
+{
+  "suspicious_ips": [
+    "10.0.0.23"
+  ],
+  "suspicious_urls": [
+    "/login",
+    "/product?id=1%20UNION%20SELECT%20username%20FROM%20users",
+    "/search?q=%27%20OR%201%3D1"
+  ],
+  "suspicious_user_agents": [
+    "sqlmap/1.7"
+  ],
+  "suspicious_accounts": [
+    "admin",
+    "guest",
+    "root",
+    "ubuntu"
+  ]
+}

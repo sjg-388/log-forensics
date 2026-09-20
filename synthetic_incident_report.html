@@ -36,54 +36,86 @@
 <h1>포렌식 분석 리포트</h1>
 
 <div class="meta">
-    <p><strong>분석 대상:</strong> attack_sample.log</p>
-    <p><strong>분석 일시:</strong> 2026-09-21 00:34:10</p>
-    <p><strong>총 파싱 이벤트:</strong> 23개</p>
+    <p><strong>분석 대상:</strong> synthetic_incident.log</p>
+    <p><strong>분석 일시:</strong> 2026-09-21 00:51:11</p>
+    <p><strong>총 파싱 이벤트:</strong> 35개</p>
 </div>
 
 <h2>Executive Summary</h2>
 <table>
     <tr><th>항목</th><th>수치</th></tr>
-    <tr><td>총 탐지 이벤트</td><td><span class="summary-number">3</span>건</td></tr>
-    <tr><td>의심 IP</td><td><span class="summary-number">2</span>개</td></tr>
-    <tr><td>의심 URL</td><td><span class="summary-number">1</span>개</td></tr>
+    <tr><td>총 탐지 이벤트</td><td><span class="summary-number">7</span>건</td></tr>
+    <tr><td>의심 IP</td><td><span class="summary-number">1</span>개</td></tr>
+    <tr><td>의심 URL</td><td><span class="summary-number">3</span>개</td></tr>
     <tr><td>의심 User-Agent</td><td><span class="summary-number">1</span>개</td></tr>
 </table>
 
 <h2>탐지 결과 요약</h2>
 <table>
     <tr><th>룰</th><th>탐지 건수</th></tr>
-    <tr><td>Suspicious User-Agent</td><td>1건</td></tr>
-    <tr><td>Brute-force</td><td>0건</td></tr>
+    <tr><td>Suspicious User-Agent</td><td>3건</td></tr>
+    <tr><td>Brute-force</td><td>1건</td></tr>
     <tr><td>Directory Scanning</td><td>1건</td></tr>
-    <tr><td>SQL Injection</td><td>1건</td></tr>
+    <tr><td>SQL Injection</td><td>2건</td></tr>
 </table>
 
 <h2>공격 타임라인</h2>
 
 
 <div class="timeline-entry">
-    <div class="ts">2015-05-10 01:12:01+00:00</div>
-    <span class="rule">directory_scan</span>
-    <p><strong>IP:</strong> 192.168.1.100</p>
-    <p><strong>상세:</strong> 21 requests with 21 unique paths from 192.168.1.100 within 60s</p>
+    <div class="ts">2005-06-10 09:08:00</div>
+    <span class="rule">brute_force</span>
+    <p><strong>IP:</strong> 10.0.0.23</p>
+    <p><strong>상세:</strong> 11 failed logins from 10.0.0.23 within 300s</p>
     
 </div>
 
 <div class="timeline-entry">
-    <div class="ts">2015-05-10 01:13:01+00:00</div>
-    <span class="rule">suspicious_user_agent</span>
-    <p><strong>IP:</strong> 10.0.0.5</p>
-    <p><strong>상세:</strong> User-Agent contains suspicious keyword: sqlmap</p>
-    <p><strong>경로:</strong> /login?user=admin'--&pass=x</p>
+    <div class="ts">2015-05-10 09:00:01+00:00</div>
+    <span class="rule">directory_scan</span>
+    <p><strong>IP:</strong> 10.0.0.23</p>
+    <p><strong>상세:</strong> 21 requests with 21 unique paths from 10.0.0.23 within 60s</p>
+    
 </div>
 
 <div class="timeline-entry">
-    <div class="ts">2015-05-10 01:13:01+00:00</div>
+    <div class="ts">2015-05-10 09:03:00+00:00</div>
+    <span class="rule">suspicious_user_agent</span>
+    <p><strong>IP:</strong> 10.0.0.23</p>
+    <p><strong>상세:</strong> User-Agent contains suspicious keyword: sqlmap</p>
+    <p><strong>경로:</strong> /search?q=%27%20OR%201%3D1</p>
+</div>
+
+<div class="timeline-entry">
+    <div class="ts">2015-05-10 09:03:00+00:00</div>
     <span class="rule">sql_injection</span>
-    <p><strong>IP:</strong> 10.0.0.5</p>
+    <p><strong>IP:</strong> 10.0.0.23</p>
     <p><strong>상세:</strong> SQL Injection 시도 의심 패턴 탐지 (쿼리스트링): '</p>
-    <p><strong>경로:</strong> /login?user=admin'--&pass=x</p>
+    <p><strong>경로:</strong> /search?q=%27%20OR%201%3D1</p>
+</div>
+
+<div class="timeline-entry">
+    <div class="ts">2015-05-10 09:03:01+00:00</div>
+    <span class="rule">suspicious_user_agent</span>
+    <p><strong>IP:</strong> 10.0.0.23</p>
+    <p><strong>상세:</strong> User-Agent contains suspicious keyword: sqlmap</p>
+    <p><strong>경로:</strong> /product?id=1%20UNION%20SELECT%20username%20FROM%20users</p>
+</div>
+
+<div class="timeline-entry">
+    <div class="ts">2015-05-10 09:03:01+00:00</div>
+    <span class="rule">sql_injection</span>
+    <p><strong>IP:</strong> 10.0.0.23</p>
+    <p><strong>상세:</strong> SQL Injection 시도 의심 패턴 탐지 (쿼리스트링): union</p>
+    <p><strong>경로:</strong> /product?id=1%20UNION%20SELECT%20username%20FROM%20users</p>
+</div>
+
+<div class="timeline-entry">
+    <div class="ts">2015-05-10 09:05:00+00:00</div>
+    <span class="rule">suspicious_user_agent</span>
+    <p><strong>IP:</strong> 10.0.0.23</p>
+    <p><strong>상세:</strong> User-Agent contains suspicious keyword: sqlmap</p>
+    <p><strong>경로:</strong> /login</p>
 </div>
 
 
@@ -94,9 +126,7 @@
 
 <ul class="ioc-list">
 
-    <li>10.0.0.5</li>
-
-    <li>192.168.1.100</li>
+    <li>10.0.0.23</li>
 
 </ul>
 
@@ -105,7 +135,11 @@
 
 <ul class="ioc-list">
 
-    <li>/login?user=admin'--&pass=x</li>
+    <li>/login</li>
+
+    <li>/product?id=1%20UNION%20SELECT%20username%20FROM%20users</li>
+
+    <li>/search?q=%27%20OR%201%3D1</li>
 
 </ul>
 
@@ -121,7 +155,17 @@
 
 <h3>의심 계정</h3>
 
-<p class="empty">없음</p>
+<ul class="ioc-list">
+
+    <li>admin</li>
+
+    <li>guest</li>
+
+    <li>root</li>
+
+    <li>ubuntu</li>
+
+</ul>
 
 
 </body>

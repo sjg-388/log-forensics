@@ -7,6 +7,8 @@ LOG_PATTERN = re.compile(
     r'\s+(?P<message>.+?)(?:\s+rhost=(?P<src_ip>\S+))?$'
 )
 
+FROM_IP_PATTERN = re.compile(r'from\s+(\d+\.\d+\.\d+\.\d+)\s+port')
+
 USERNAME_PATTERNS = [
     re.compile(r'Failed password for invalid user (\S+)'),
     re.compile(r'Failed password for (\S+)'),
@@ -43,10 +45,16 @@ def parse_auth_line(line: str) -> LogEvent | None:
 
     username = extract_username(message)
 
+    src_ip = match.group("src_ip")
+    if not src_ip:
+        ip_match = FROM_IP_PATTERN.search(message)
+        if ip_match:
+            src_ip = ip_match.group(1)
+
     return LogEvent(
         timestamp=timestamp,
         source="auth",
-        src_ip=match.group("src_ip"),
+        src_ip=src_ip,
         event_type=event_type,
         method=None,
         path=None,

@@ -20,7 +20,7 @@ def extract_ioc(all_findings, events=None):
     # auth 이벤트에서 직접 username 추출
     if events:
         for event in events:
-            if event.source == "auth" and event.username:
+            if event.source == "auth" and event.username and event.event_type == "ssh_failed_login":
                 suspicious_accounts.add(event.username)
 
     return {
