@@ -56,6 +56,16 @@ def build_cases(all_findings, events):
 
     # set → list 변환
     for case in cases.values():
+        # findings 시간순 정렬
+        def ts_key(f):
+            ts_str = f.get("timestamp") or f.get("first_seen") or ""
+            try:
+                ts = datetime.fromisoformat(str(ts_str).replace("+0000", "+00:00"))
+                return ts.replace(tzinfo=None)
+            except Exception:
+                return datetime.min
+
+        case["findings"].sort(key=ts_key)
         case["related_iocs"] = sorted(list(case["related_iocs"]))
         case["first_seen"] = str(case["first_seen"]) if case["first_seen"] else None
         case["last_seen"] = str(case["last_seen"]) if case["last_seen"] else None
