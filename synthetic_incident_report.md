@@ -1,7 +1,7 @@
 # 포렌식 분석 리포트
 
 **분석 대상:** synthetic_incident.log
-**분석 일시:** 2026-09-21 00:51:11
+**분석 일시:** 2026-09-21 00:57:23
 **총 파싱 이벤트:** 35개
 
 ---
@@ -29,13 +29,6 @@
 ---
 
 ## 공격 타임라인
-
-
-
-### [2005-06-10 09:08:00]
-- **IP:** 10.0.0.23
-- **룰:** brute_force
-- **상세:** 11 failed logins from 10.0.0.23 within 300s
 
 
 
@@ -79,6 +72,13 @@
 - **룰:** suspicious_user_agent
 - **상세:** User-Agent contains suspicious keyword: sqlmap
 - **경로:** /login
+
+
+### [2015-06-10 09:08:00]
+- **IP:** 10.0.0.23
+- **룰:** brute_force
+- **상세:** 11 failed logins from 10.0.0.23 within 300s
+
 
 
 

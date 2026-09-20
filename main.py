@@ -14,7 +14,7 @@ from timeline_reconstructor import build_timeline, print_timeline
 from report_generator import generate_markdown_report, generate_html_report
 from case_builder import build_cases, print_cases
 
-def load_logs(log_file):
+def load_logs(log_file, auth_year=2005):
     events = []
     with open(log_file, "r", encoding="utf-8") as f:
         for line in f:
@@ -23,7 +23,7 @@ def load_logs(log_file):
                 continue
             event = parse_apache(line)
             if not event:
-                event = parse_auth(line)
+                event = parse_auth(line, year=auth_year)
             if event:
                 events.append(event)
     return events
@@ -41,14 +41,14 @@ def save_results(log_file, ioc, timeline):
         json.dump(timeline, f, ensure_ascii=False, indent=2)
     print(f"타임라인 저장 완료: {timeline_path}")
 
-def main(log_file):
+def main(log_file, auth_year=2005):
 
     # 파일 존재 여부 확인
     if not os.path.exists(log_file):
         print(f"[오류] 파일을 찾을 수 없습니다: {log_file}")
         sys.exit(1)
   
-    events = load_logs(log_file)
+    events = load_logs(log_file, auth_year)
     print(f"Parsed {len(events)} events")
 
     apache_events = [e for e in events if e.source == "apache"]
@@ -102,7 +102,7 @@ def main(log_file):
     with open(cases_path, "w", encoding="utf-8") as f:
         json.dump(cases, f, ensure_ascii=False, indent=2)
     print(f"Case 저장 완료: {cases_path}")
-    
+
     print("\n[리포트 생성]")
     generate_markdown_report(
         log_file, len(events), all_findings, ioc, timeline,
@@ -115,7 +115,8 @@ def main(log_file):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("사용법: python main.py <로그 파일 경로>")
-        print("예시: python main.py sample_logs/apache_logs.txt")
+        print("사용법: python main.py <로그 파일 경로> [연도]")
+        print("예시: python main.py sample_logs/synthetic_incident.log 2015")
         sys.exit(1)
-    main(sys.argv[1])
+    auth_year = int(sys.argv[2]) if len(sys.argv) >= 3 else 2005
+    main(sys.argv[1], auth_year)

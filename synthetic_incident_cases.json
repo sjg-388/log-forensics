@@ -1,8 +1,8 @@
 [
   {
     "src_ip": "10.0.0.23",
-    "first_seen": "2005-06-10 09:08:00",
-    "last_seen": "2015-05-10 09:05:00",
+    "first_seen": "2015-05-10 09:00:01",
+    "last_seen": "2015-06-10 09:08:00",
     "findings": [
       {
         "rule": "suspicious_user_agent",
@@ -33,7 +33,7 @@
         "src_ip": "10.0.0.23",
         "count": 11,
         "window_seconds": 300,
-        "first_seen": "2005-06-10 09:08:00",
+        "first_seen": "2015-06-10 09:08:00",
         "reason": "11 failed logins from 10.0.0.23 within 300s"
       },
       {

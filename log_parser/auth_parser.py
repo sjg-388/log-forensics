@@ -23,7 +23,7 @@ def extract_username(message: str) -> str | None:
             return match.group(1)
     return None
 
-def parse_auth_line(line: str) -> LogEvent | None:
+def parse_auth_line(line: str, year: int = 2005) -> LogEvent | None:
     match = LOG_PATTERN.match(line.strip())
     if not match:
         return None
@@ -36,8 +36,7 @@ def parse_auth_line(line: str) -> LogEvent | None:
         event_type = "ssh_success_login"
     else:
         return None
-
-    time_str = f"2005 {match.group('month')} {match.group('day')} {match.group('time')}"
+    time_str = f"{year} {match.group('month')} {match.group('day')} {match.group('time')}"
     try:
         timestamp = datetime.strptime(time_str, "%Y %b %d %H:%M:%S")
     except ValueError:
